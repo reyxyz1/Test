@@ -129,15 +129,15 @@ class AdvancedFXAPDecryptor:
             nonces_to_try.append(nonce)
         
         # Try extracting nonce from data
-        if len(data) >= 12:
-            nonces_to_try.append(data[:12])
-            nonces_to_try.append(data[-12:])
+        if len(data) >= 16:
+            nonces_to_try.append(data[:16])
+            nonces_to_try.append(data[-16:])
         
         # Try common nonces
         nonces_to_try.extend([
-            b'\x00' * 12,
-            b'\x01' * 12,
-            hashlib.sha256(key).digest()[:12],
+            b'\x00' * 16,
+            b'\x01' * 16,
+            hashlib.sha256(key).digest()[:16],
         ])
         
         for test_nonce in nonces_to_try:
@@ -150,7 +150,7 @@ class AdvancedFXAPDecryptor:
                 decryptor = cipher.decryptor()
                 
                 # Try different data offsets
-                for offset in [0, 12, 16, 20]:
+                for offset in [0, 16, 20, 24]:
                     if len(data) <= offset:
                         continue
                     

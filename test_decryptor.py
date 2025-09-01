@@ -69,7 +69,7 @@ def create_fxap_encrypted_file(content, resource_id="test_resource"):
     
     # Generate key and nonce
     key = hashlib.sha256(f"fxap_{resource_id}".encode()).digest()
-    nonce = hashlib.sha256(key).digest()[:12]
+    nonce = hashlib.sha256(key).digest()[:16]  # ChaCha20 needs 16 bytes for nonce
     
     # Encrypt content
     content_bytes = content.encode('utf-8')
