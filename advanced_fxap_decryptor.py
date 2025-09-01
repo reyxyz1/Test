@@ -568,6 +568,19 @@ class FXAPDecryptor(AdvancedFXAPDecryptor):
             logger.info(f"Decryption successful using method: {method}")
         return success, content, error
     
+    def is_fxap_encrypted(self, file_data):
+        """
+        Backward compatible FXAP detection
+        
+        Args:
+            file_data (bytes): Raw file data
+            
+        Returns:
+            bool: True if file appears to be FXAP encrypted
+        """
+        encryption_type = self.detect_encryption_type(file_data)
+        return encryption_type in ['fxap', 'base64_fxap', 'xor']
+    
     def is_valid_lua(self, content):
         """Backward compatible validation"""
         return self.is_valid_lua_content(content.encode('utf-8') if isinstance(content, str) else content)
