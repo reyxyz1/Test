@@ -242,7 +242,7 @@ async def decrypt_file(ctx):
             except:
                 pass
 
-@bot.command(name='help', help='Show help information')
+@bot.command(name='guide', help='Show help information')
 async def help_command(ctx):
     """Custom help command"""
     embed = discord.Embed(
@@ -258,7 +258,7 @@ async def help_command(ctx):
               "`!analyze` - Analyze a file without decrypting it\n"
               "`!status` - Show bot status and statistics\n"
               "`!info` - Show bot information\n"
-              "`!help` - Show this help message",
+              "`!guide` - Show this help message",
         inline=False
     )
     
